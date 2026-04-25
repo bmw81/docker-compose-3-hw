@@ -1,0 +1,8 @@
+services:
+  tester:
+    image: alpine:3.19
+    command: sh -c "echo Password is $${MY_PASS}"
+#    environment:
+#      - MY_PASS=from_compose_env
+    env_file:
+      - ./db.env

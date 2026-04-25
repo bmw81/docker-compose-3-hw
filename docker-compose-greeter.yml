@@ -1,0 +1,4 @@
+services:
+  greeter:
+    image: greeter:latest
+    entrypoint: ["sleep", "9999"]

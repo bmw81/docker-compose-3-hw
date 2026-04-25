@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    
+  
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    ports:
+      - '8080:80'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fL http://localhost/wp-admin/install.php/ || exit 1",
+        ]
+      interval: 5s
+      timeout: 2s
+      retries: 1
+    

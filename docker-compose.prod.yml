@@ -1,0 +1,13 @@
+services:
+  web:
+    image: nginx:stable                      # другой тег (стабильная версия)
+    ports:
+      - "443:443"                            # добавляем HTTPS
+    volumes:
+      - /mnt/nfs/html:/usr/share/nginx/html  # переопределяем путь на NFS
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M

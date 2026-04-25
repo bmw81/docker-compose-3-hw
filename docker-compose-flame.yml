@@ -1,0 +1,15 @@
+# run container docker run -p 5005:5005 -v /path/to/data:/app/data -e PASSWORD=flame_password flame
+
+version: '3.5'
+services:
+  flame:
+    image: pawelmalak/flame
+    container_name: flame
+    volumes:
+      - '/home/mike/git/git-docker/git-docker-compose-3/volume:/app/data'
+    restart: always
+    environment:
+      - 'PASSWORD=flame_password'
+    ports:
+      - '5005:5005'
+    

@@ -1,0 +1,6 @@
+services:
+  writer:
+    image: alpine:3.19
+    command: sh -c 'while true; do date >> /data/dates.txt; sleep 5; done'
+    volumes:
+      - ./writer_data:/data

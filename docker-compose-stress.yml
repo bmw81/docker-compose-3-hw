@@ -1,0 +1,10 @@
+services:
+  stress:
+    image: polinux/stress:latest
+    command: stress --vm 1 --vm-bytes 40M --timeout 120s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 50M
